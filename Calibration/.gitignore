@@ -1,0 +1,7 @@
+.vscode/
+*.tmp
+.DS_Store
+# Logs are rewritten by each run and contain machine-specific paths
+output/logs/
+**/*_evaluations/*.log
+output/robustness/*/*.log

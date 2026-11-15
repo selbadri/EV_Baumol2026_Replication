@@ -1,0 +1,16 @@
+at_bound = false
+
+[pk_defl]
+nodes = [1950, 2023]
+ln_defl = [0.0, 0.06489947620324527]
+
+[demand]
+eta_m = 0.75864143235618
+sigma = 0.026138707553362048
+eta_rs = 1.3783794832227956
+
+[fit]
+goods_va_rmse = 0.0050753979401842245
+goods_price_rmse = 0.0026171091962947247
+overall_rmse = 0.0047730390792485936
+ri_services_va_rmse = 0.004450184249313984

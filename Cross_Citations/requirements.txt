@@ -1,0 +1,6 @@
+# Python 3.9 or later. Versions used for the paper (Python 3.9.6, macOS):
+pandas==2.3.3
+numpy==2.0.2
+matplotlib==3.9.4
+pyarrow==21.0.0  # the citation cache (.parquet)
+py7zr==1.0.0     # only to unpack the OECD .7z archives

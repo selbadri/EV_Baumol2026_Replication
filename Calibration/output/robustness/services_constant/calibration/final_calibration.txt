@@ -1,0 +1,66 @@
+FINAL CALIBRATION: PARAMETERS AND MOMENTS
+================================================================================================
+Specification: homogeneous researchers, free mobility, zero research floors
+Sample: 1950-2023
+
+PARAMETERS
+------------------------------------------------------------------------------------------------
+parameter                                 value  status
+kappa_m                            2.5339120256  calibrated
+kappa_rs                           2.8236584215  calibrated
+kappa_ns                           4.4101587424  calibrated
+eta_m                              0.7671314624  calibrated
+eta_rs                             1.3637115481  calibrated
+eta_ns                             1.0000000000  fixed normalization
+sigma                              0.0155182549  calibrated
+theta_m                            0.4536652537  recovered using 1950 VA shares
+theta_rs                           0.1018120786  recovered using 1950 VA shares
+theta_ns                           0.4445226677  adding-up residual
+zeta0_m                            0.3140841330  calibrated
+zeta0_rs                           0.1191963910  calibrated
+zeta0_ns                           0.1270940366  calibrated
+gzeta_m                            0.0093399313  calibrated
+gzeta_rs                           0.0122073124  calibrated
+gzeta_ns                          -0.0164193374  calibrated
+
+DATA AND MODEL MOMENTS
+----------------------------------------------------------------------------------------------------------------
+moment                                                        data           model      model-data  role
+LP trend slope, Goods, 1950-2023                       0.026098775     0.026081678    -0.000017097  check: annual trend path targeted
+LP growth, Goods, 1950-2023 (raw endpoints)            0.024066172     0.026978144    +0.002911972  untargeted
+Goods patent stock, ln N(2023)/N(1950)                 1.496922831     1.449433024    -0.047489807  target: annual path
+LP trend slope, RI-S, 1950-2023                        0.022970055     0.022970150    +0.000000095  target: trend slope
+LP growth, RI-S, 1950-2023 (raw endpoints)             0.023851086     0.024222961    +0.000371875  untargeted
+LP trend slope, NRI-S, 1950-2023                       0.015863531     0.015863558    +0.000000026  target: trend slope
+LP growth, NRI-S, 1950-2023 (raw endpoints)            0.015046652     0.014503203    -0.000543449  untargeted
+Scientist share, RI-S, 1950                            0.118236859     0.010988200    -0.107248658  target: annual path
+Scientist share, RI-S, 2023                            0.440308972     0.395664470    -0.044644502  target: annual path
+Scientist share, NRI-S, 1950                           0.178095914     0.154601740    -0.023494174  target: annual path
+Scientist share, NRI-S, 2023                           0.280852956     0.238754297    -0.042098659  target: annual path
+Price p_m(2023)/p_m(1950), chained VA deflator         0.688834094     0.689625431    +0.000791337  check: follows from the VA shares
+Price p_m(2023)/p_m(1950), final-good units            0.688834094     0.736945511    +0.048111417  reported: numeraire differs from the data
+Price p_rs(2023)/p_rs(1950), chained VA deflator       1.205438065     1.206822881    +0.001384815  relative to p_m imposed (tau^p)
+Price p_ns(2023)/p_ns(1950), chained VA deflator       1.229639784     1.231052402    +0.001412618  relative to p_m imposed (tau^p)
+Capital-price deflator ln D(2023)                               --     0.066365358              --  equilibrium object
+VA share, Goods, 1950 (raw)                            0.496045381     0.496045381    -0.000000000  anchor for theta recovery
+VA share, RI-S, 1950 (raw)                             0.077686533     0.077686533    +0.000000000  anchor for theta recovery
+VA share, Goods, 2023                                  0.203382942     0.212943623    +0.009560681  target: annual path
+VA share, RI-S, 2023                                   0.247730194     0.229568294    -0.018161900  target: annual path
+VA share, NRI-S, 2023                                  0.548886864     0.557488083    +0.008601219  implied by adding up
+Goods LP index, 1950                                   1.000000000     1.000000000    +0.000000000  normalization, not a moment
+
+NOTES
+- Goods LP in 1950 equals one only because both data and model LP series are indexed to 1950.
+  It is a normalization/check, not an additional identifying moment.
+- eta_ns is fixed at one; eta_m, rather than eta_ns, is calibrated.
+- theta_m and theta_rs are recovered internally using the two 1950 VA shares as anchors.
+- Model VA shares are omega_j s_j / sum_i omega_i s_i, omega_j = 1-(1-alpha) mu^y_j mu^x_j.
+- mu^y_j = LS_j/(alpha + (1-alpha) LS_j mu^x_j), with LS_j the labor share of sectoral value added.
+- Several blocks fit complete annual paths, so identification is not a one-parameter/one-scalar-moment count.
+- Sector prices are separately indexed to one in 1950 before their endpoint ratios are computed.
+- Data prices are relative to the private VA deflator (Tornqvist). The chained model rows divide
+  by a Fisher chain of model sector prices with VA weights; the final-good rows use the model numeraire.
+- Relative service prices are imposed through the production wedge tau^p, so they never test the model.
+- Model capital prices are data capital prices times D, the chained VA deflator in final-good units.
+- LP targets are the smoothing-spline trends of log LP: Goods fits the annual trend path, and
+  kappa_rs and kappa_ns equate the model and trend slopes of cumulative log LP since 1950.

@@ -1,0 +1,28 @@
+variant,label,sector,1950,1960,1976,1990,2000,2010,2019,2023
+value_weighted,KPSS market value,Goods,12.268,12.517,12.982,13.1,13.505,13.779,14.218,14.285
+value_weighted,KPSS market value,RI_Services,7.981,8.23,8.695,9.046,10.577,11.359,12.405,12.601
+value_weighted,KPSS market value,NRI_Services,7.542,7.79,8.256,8.424,8.958,10.293,11.343,11.502
+unweighted,Unweighted count,Goods,12.263,12.512,12.977,13.093,13.52,13.822,14.302,14.378
+unweighted,Unweighted count,RI_Services,7.706,7.955,8.421,8.849,9.891,10.837,11.917,12.105
+unweighted,Unweighted count,NRI_Services,8.233,8.481,8.947,9.166,9.69,9.988,10.769,10.987
+fwd_cits5,"Forward citations, 5 year window",Goods,12.262,12.511,12.976,13.089,13.5,13.784,14.247,
+fwd_cits5,"Forward citations, 5 year window",RI_Services,7.356,7.604,8.07,9.131,10.452,11.315,12.244,
+fwd_cits5,"Forward citations, 5 year window",NRI_Services,8.415,8.664,9.129,9.154,9.683,10.25,11.254,
+fwd_cits7,"Forward citations, 7 year window",Goods,12.26,12.508,12.974,13.087,13.497,13.783,,
+fwd_cits7,"Forward citations, 7 year window",RI_Services,7.359,7.608,8.073,9.189,10.486,11.31,,
+fwd_cits7,"Forward citations, 7 year window",NRI_Services,8.532,8.781,9.246,9.192,9.734,10.279,,
+family_size,Patent family size,Goods,12.265,12.514,12.979,13.098,13.529,13.833,14.321,14.398
+family_size,Patent family size,RI_Services,7.233,7.482,7.947,8.714,9.695,10.633,11.735,11.935
+family_size,Patent family size,NRI_Services,8.32,8.568,9.034,8.972,9.507,9.891,10.645,10.848
+renewal,Renewal to full term,Goods,12.259,12.507,12.973,13.092,13.52,,,
+renewal,Renewal to full term,RI_Services,8.015,8.264,8.729,8.959,9.964,,,
+renewal,Renewal to full term,NRI_Services,8.245,8.494,8.959,9.12,9.627,,,
+triadic,Triadic families only,Goods,12.267,12.515,12.981,13.099,13.53,13.836,14.325,14.407
+triadic,Triadic families only,RI_Services,7.989,8.237,8.703,8.945,9.762,10.591,11.677,11.839
+triadic,Triadic families only,NRI_Services,7.712,7.961,8.426,8.664,9.316,9.797,10.62,10.816
+us_inventor,US resident inventor only,Goods,12.259,12.508,12.974,13.089,13.514,13.805,14.278,14.352
+us_inventor,US resident inventor only,RI_Services,7.737,7.986,8.451,8.83,9.968,11.011,12.036,12.22
+us_inventor,US resident inventor only,NRI_Services,8.387,8.635,9.101,9.35,9.878,10.255,11.106,11.319
+value_weighted_exbm,"KPSS value, excl. business methods",Goods,12.268,12.517,12.983,13.101,13.507,13.81,14.279,14.348
+value_weighted_exbm,"KPSS value, excl. business methods",RI_Services,7.966,8.215,8.681,9.024,10.542,11.177,12.237,12.458
+value_weighted_exbm,"KPSS value, excl. business methods",NRI_Services,7.542,7.791,8.256,8.423,8.957,9.459,10.219,10.428

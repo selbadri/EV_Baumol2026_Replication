@@ -1,0 +1,63 @@
+machine_markups = "quad"
+
+[zeta_fit]
+lp_data_m = 0.026098774933536247
+lp_residual_rs = 9.480629417635278e-8
+lp_model_ns = 0.015863557295713544
+lp_model_m = 0.026081677013074404
+scientist_rmse = 0.05359279398075289
+lp_model_rs = 0.02297014951991177
+goods_patent_rmse = 0.01824477468126537
+lp_residual_ns = 2.5802928294016425e-8
+goods_lp_rmse = 0.0329869087842128
+lp_data_ns = 0.01586353149278525
+lp_data_rs = 0.022970054713617592
+
+[demand]
+eta_m = 0.7671314624105262
+sigma = 0.015518254931016308
+eta_rs = 1.3637115480989668
+
+[zeta0]
+rs = 0.11919639099223579
+m = 0.3140841329555012
+ns = 0.12709403662994448
+
+[zeta_knots]
+
+[g2zeta]
+rs = 0.0
+ns = 0.0
+
+[demand_fit]
+goods_va_rmse = 0.007036746700258612
+goods_price_rmse = 0.0020791485390333916
+overall_rmse = 0.00826303710278665
+ri_services_va_rmse = 0.009329510180092903
+
+[pk_defl]
+nodes = [1950, 2023]
+ln_defl = [0.0, 0.0663653578195535]
+
+[status]
+completed_sweeps = 4
+converged = true
+maximum_parameter_change = 5.555648778139688e-7
+tolerance = 1.0e-5
+
+[kappa_status]
+iterations = 0
+evaluations = 1
+converged = true
+maximum_lp_residual = 9.480629417635278e-8
+tolerance = 1.0e-6
+
+[kappa]
+rs = 2.8236584215057072
+m = 2.533912025553325
+ns = 4.410158742407157
+
+[gzeta]
+rs = 0.012207312363087147
+m = 0.009339931297535239
+ns = -0.016419337384479704

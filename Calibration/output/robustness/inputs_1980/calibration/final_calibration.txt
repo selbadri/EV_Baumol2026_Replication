@@ -1,0 +1,76 @@
+FINAL CALIBRATION: PARAMETERS AND MOMENTS
+================================================================================================
+Specification: homogeneous researchers, free mobility, zero research floors
+Sample: 1950-2023
+
+PARAMETERS
+------------------------------------------------------------------------------------------------
+parameter                                 value  status
+kappa_m                            2.7819589851  calibrated
+kappa_rs                           3.5635004290  calibrated
+kappa_ns                           5.3736625513  calibrated
+eta_m                              0.7111961897  calibrated
+eta_rs                             1.4092426722  calibrated
+eta_ns                             1.0000000000  fixed normalization
+sigma                              0.1278366326  calibrated
+theta_m                            0.4449943627  recovered using 1950 VA shares
+theta_rs                           0.1049643679  recovered using 1950 VA shares
+theta_ns                           0.4500412695  adding-up residual
+zeta0_m                            0.3941419916  calibrated
+zeta0_rs                           0.5705683570  summary of the knots (first knot, mean growth)
+zeta0_ns                           0.1881759641  summary of the knots (first knot, mean growth)
+gzeta_m                            0.0017391757  calibrated
+gzeta_rs                          -0.0075442580  summary of the knots (first knot, mean growth)
+gzeta_ns                          -0.0195625603  summary of the knots (first knot, mean growth)
+Services research productivity at the knots (BLOCKB_MODE=knots; zeta0 and gzeta above
+are the first knot and the mean growth to the last knot):
+  1950   zeta_rs 0.570568   zeta_ns 0.188176
+  1960   zeta_rs 0.338860   zeta_ns 0.146697
+  1970   zeta_rs 0.198237   zeta_ns 0.105184
+  1980   zeta_rs 0.145067   zeta_ns 0.071181
+  1990   zeta_rs 0.156989   zeta_ns 0.056416
+  2000   zeta_rs 0.201069   zeta_ns 0.051534
+  2010   zeta_rs 0.252873   zeta_ns 0.048383
+  2023   zeta_rs 0.328949   zeta_ns 0.045119
+
+DATA AND MODEL MOMENTS
+----------------------------------------------------------------------------------------------------------------
+moment                                                        data           model      model-data  role
+LP trend slope, Goods, 1950-2023                       0.026098775     0.026102850    +0.000004075  check: annual trend path targeted
+LP growth, Goods, 1950-2023 (raw endpoints)            0.024066172     0.027089723    +0.003023552  untargeted
+Goods patent stock, ln N(2023)/N(1950)                 1.496922831     1.344357022    -0.152565809  target: annual path
+LP trend slope, RI-S, 1950-2023                        0.022970055     0.022970120    +0.000000065  target: trend slope
+LP growth, RI-S, 1950-2023 (raw endpoints)             0.023851086     0.027370746    +0.003519660  untargeted
+LP trend slope, NRI-S, 1950-2023                       0.015863531     0.015863547    +0.000000015  target: trend slope
+LP growth, NRI-S, 1950-2023 (raw endpoints)            0.015046652     0.015838361    +0.000791709  untargeted
+Scientist share, RI-S, 1950                            0.118236859     0.119691233    +0.001454374  target: annual path
+Scientist share, RI-S, 2023                            0.440308972     0.440423912    +0.000114940  target: annual path
+Scientist share, NRI-S, 1950                           0.178095914     0.178479043    +0.000383129  target: annual path
+Scientist share, NRI-S, 2023                           0.280852956     0.280751927    -0.000101029  target: annual path
+Price p_m(2023)/p_m(1950), chained VA deflator         0.688834094     0.690134049    +0.001299955  check: follows from the VA shares
+Price p_m(2023)/p_m(1950), final-good units            0.688834094     0.757921241    +0.069087147  reported: numeraire differs from the data
+Price p_rs(2023)/p_rs(1950), chained VA deflator       1.205438065     1.207712945    +0.002274880  relative to p_m imposed (tau^p)
+Price p_ns(2023)/p_ns(1950), chained VA deflator       1.229639784     1.231960336    +0.002320553  relative to p_m imposed (tau^p)
+Capital-price deflator ln D(2023)                               --     0.093693625              --  equilibrium object
+VA share, Goods, 1950 (raw)                            0.496045381     0.496045381    -0.000000000  anchor for theta recovery
+VA share, RI-S, 1950 (raw)                             0.077686533     0.077686533    +0.000000000  anchor for theta recovery
+VA share, Goods, 2023                                  0.203382942     0.207390776    +0.004007833  target: annual path
+VA share, RI-S, 2023                                   0.247730194     0.238680402    -0.009049791  target: annual path
+VA share, NRI-S, 2023                                  0.548886864     0.553928822    +0.005041958  implied by adding up
+Goods LP index, 1950                                   1.000000000     1.000000000    +0.000000000  normalization, not a moment
+
+NOTES
+- Goods LP in 1950 equals one only because both data and model LP series are indexed to 1950.
+  It is a normalization/check, not an additional identifying moment.
+- eta_ns is fixed at one; eta_m, rather than eta_ns, is calibrated.
+- theta_m and theta_rs are recovered internally using the two 1950 VA shares as anchors.
+- Model VA shares are omega_j s_j / sum_i omega_i s_i, omega_j = 1-(1-alpha) mu^y_j mu^x_j.
+- mu^y_j = LS_j/(alpha + (1-alpha) LS_j mu^x_j), with LS_j the labor share of sectoral value added.
+- Several blocks fit complete annual paths, so identification is not a one-parameter/one-scalar-moment count.
+- Sector prices are separately indexed to one in 1950 before their endpoint ratios are computed.
+- Data prices are relative to the private VA deflator (Tornqvist). The chained model rows divide
+  by a Fisher chain of model sector prices with VA weights; the final-good rows use the model numeraire.
+- Relative service prices are imposed through the production wedge tau^p, so they never test the model.
+- Model capital prices are data capital prices times D, the chained VA deflator in final-good units.
+- LP targets are the smoothing-spline trends of log LP: Goods fits the annual trend path, and
+  kappa_rs and kappa_ns equate the model and trend slopes of cumulative log LP since 1950.

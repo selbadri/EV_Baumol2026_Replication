@@ -1,0 +1,10 @@
+parameter,source (cited),destination (citing),value
+delta_mm,Goods,Goods,0.9243
+delta_mr,RI Services,Goods,0.0465
+delta_mn,NRI Services,Goods,0.0292
+delta_rm,Goods,RI Services,0.7177
+delta_rr,RI Services,RI Services,0.264
+delta_rn,NRI Services,RI Services,0.0182
+delta_nm,Goods,NRI Services,0.8322
+delta_nr,RI Services,NRI Services,0.0338
+delta_nn,NRI Services,NRI Services,0.134

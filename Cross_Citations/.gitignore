@@ -1,0 +1,14 @@
+# Large downloads, not redistributable (see README, Data availability)
+input/PatentsView/
+input/OECD_Citations_Feb2025/
+input/OECD_TPF_Feb2025/
+input/OECD_Quality_Feb2025/
+input/KPSS/
+# OECD archives unpacked by step 06
+intermediate/
+# Logs are rewritten by each run and contain machine-specific paths
+output/logs/
+__pycache__/
+.DS_Store
+desktop.ini
+~$*
