@@ -1,0 +1,11 @@
+{
+  "title": "Replication package for \"An Anatomy of the Baumol Cost Disease\"",
+  "upload_type": "software",
+  "description": "Code and data to reproduce all results of Elbadri, S. and Vizcaino, J. I. (2026), An Anatomy of the Baumol Cost Disease. See README.md for the data sources, the files that must be downloaded separately, and instructions.",
+  "creators": [
+    {"name": "Elbadri, Selim", "affiliation": "University of Nottingham"},
+    {"name": "Vizcaino, Juan I.", "affiliation": "University of Nottingham"}
+  ],
+  "license": "MIT",
+  "keywords": ["Baumol cost disease", "structural change", "R&D", "knowledge spillovers", "patents", "replication package"]
+}

@@ -187,9 +187,11 @@ The README of each folder maps every number quoted in the text to the script tha
 
 The code is released under the MIT License (see the `LICENSE` file at the top level and in each folder). Third-party data remain under their providers' terms, listed above.
 
-If you use this code or data, please cite:
+If you use this code or data, please cite the paper and the replication package:
 
 > Elbadri, S. & Vizcaino, J. I. (2026). *An Anatomy of the Baumol Cost Disease*. Working paper.
+
+> Elbadri, S. & Vizcaino, J. I. (2026). *Replication package for "An Anatomy of the Baumol Cost Disease"*. Zenodo. https://doi.org/10.5281/zenodo.24265690. Code: https://github.com/selbadri/EV_Baumol2026_Replication
 
 ## Contact
 
