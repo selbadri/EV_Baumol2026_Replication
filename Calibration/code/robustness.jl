@@ -10,6 +10,9 @@
             machine-producer markups at their means (MUX_MODE=mean).
           Further cases reported in the text of Appendix J and in Appendix H.2:
             mean markups with phi = 0.25 and 0.75; inputs with a break in 1980 (INPUT_KNOTS).
+          The two markup checks of Appendix F (footnotes 41 and 42) recalibrate with the
+          markup series built without real estate and from BEA data in every year, read from
+          ../Empirical/output/dataset/data_moments_markups_{noRE,BEA}.xlsx (DATA_MOMENTS).
           For each case, runs run_full_calibration.jl and Exercises 1, 3 and 5 in child
           processes, then assembles the tables with the baseline column.
  ------------------------------------------------------------------------------------------
@@ -51,6 +54,8 @@ const CASES = [
     ("mean_phi_025",  "",                           ["MUX_MODE" => "mean", "PHI_COMMON" => "0.25"]),
     ("mean_phi_075",  "",                           vcat(["MUX_MODE" => "mean"], PHI075)),
     ("inputs_1980",   "",                           ["INPUT_KNOTS" => "1980"]),
+    ("markups_noRE",  "",                           ["DATA_MOMENTS" => joinpath(dirname(CAL_PATHS.data_moments), "data_moments_markups_noRE.xlsx")]),
+    ("markups_BEA",   "",                           ["DATA_MOMENTS" => joinpath(dirname(CAL_PATHS.data_moments), "data_moments_markups_BEA.xlsx")]),
 ]
 const TABLE_ONLY = "--table-only" in ARGS
 const REDO = "--redo" in ARGS
@@ -64,6 +69,10 @@ const STEPS = (("calibration", "run_full_calibration.jl", "calibration/final_cal
                ("exercise5", joinpath("counterfactuals", "Exercise5.jl"), "counterfactuals/Exercise5_feedback.csv"))
 
 function run_case(name, env)
+    for (k, v) in env
+        k == "DATA_MOMENTS" && !isfile(v) &&
+            error("$name: $v not found. Run Empirical/master.do first; it writes this file.")
+    end
     dir = joinpath(CAL_PATHS.out_robustness, name)
     cal = joinpath(dir, "calibration"); cf = joinpath(dir, "counterfactuals")
     mkpath(cal); mkpath(cf)

@@ -19,6 +19,9 @@
 *
 * Outputs: output/dataset/data_moments.xlsx   -- compiled data moments table
 *                                             (DataMoments sheet: data; README sheet: variable descriptions)
+*          output/dataset/data_moments_markups_noRE.xlsx, data_moments_markups_BEA.xlsx
+*                                          -- the same table with the markup series of the two
+*                                             checks of Appendix F (intermediate/07_markups_*.dta)
 *=======================================================================================
 
 set varabbrev off
@@ -82,9 +85,9 @@ putexcel A25 = "LP_AGGREGATE"          B25 = "Labor productivity index (1947 = 1
 putexcel A26 = "LABQLTY_GOODS"         B26 = "Labor quality index (1947 = 1.00) -- Goods"
 putexcel A27 = "LABQLTY_RI"            B27 = "Labor quality index (1947 = 1.00) -- Research Intensive Services"
 putexcel A28 = "LABQLTY_NRI"           B28 = "Labor quality index (1947 = 1.00) -- Non-Research Intensive Services"
-putexcel A29 = "profit_share_GOODS"    B29 = "Machine-producer profit share (equipment and IPP; model uses the 1950-2023 mean) -- Goods"
-putexcel A30 = "profit_share_RI"       B30 = "Machine-producer profit share (equipment and IPP; model uses the 1950-2023 mean) -- Research Intensive Services"
-putexcel A31 = "profit_share_NRI"      B31 = "Machine-producer profit share (equipment and IPP; model uses the 1950-2023 mean) -- Non-Research Intensive Services"
+putexcel A29 = "profit_share_GOODS"    B29 = "Machine-producer profit share (produced nonresidential assets; the model uses a quadratic trend of the gross markup 1/(1-share) over 1950-2023) -- Goods"
+putexcel A30 = "profit_share_RI"       B30 = "Machine-producer profit share (produced nonresidential assets; the model uses a quadratic trend of the gross markup 1/(1-share) over 1950-2023) -- Research Intensive Services"
+putexcel A31 = "profit_share_NRI"      B31 = "Machine-producer profit share (produced nonresidential assets; the model uses a quadratic trend of the gross markup 1/(1-share) over 1950-2023) -- Non-Research Intensive Services"
 putexcel A32 = "PAT_USPC_GOODS"        B32 = "Number of issued patents, USPC route -- Goods"
 putexcel A33 = "PAT_USPC_RI"           B33 = "Number of issued patents, USPC route -- Research Intensive Services"
 putexcel A34 = "PAT_USPC_NRI"          B34 = "Number of issued patents, USPC route -- Non-Research Intensive Services"
@@ -107,6 +110,21 @@ putexcel A50 = "PATSH_USPC_GOODS"      B50 = "Share of issued patents, USPC rout
 putexcel A51 = "PATSH_USPC_RI"         B51 = "Share of issued patents, USPC route (comparison) -- Research Intensive Services"
 putexcel A52 = "PATSH_USPC_NRI"        B52 = "Share of issued patents, USPC route (comparison) -- Non-Research Intensive Services"
 putexcel A53 = "VAP_AGGREGATE"         B53 = "Private-economy value added price index, Tornqvist (1947 = 1.00)"
+
+*=======================================================================================
+* STEP 4: Data moments for the two markup checks of Appendix F
+*         Same table, with the markup series built without real estate (footnote 41)
+*         and from BEA data in every year (footnote 42); read by Calibration/code/robustness.jl
+*=======================================================================================
+
+foreach v in noRE BEA {
+    preserve
+    drop profit_share_*
+    merge 1:1 Year using "$interm/07_markups_`v'.dta", nogenerate keepusing(profit_share_*)
+    order Year LABVASHARE_* VASHARE* VAP* CAPPRICE* LP* *LABQLTY* profit_share* pop* PAT_* PATSH* PATSTOCK_* PATSTOCKSH_* RDSH* SCI_SH
+    export excel using "$output/dataset/data_moments_markups_`v'.xlsx", replace firstrow(variables) sheet("DataMoments")
+    restore
+}
 
 *=======================================================================================
 *=======================================================================================

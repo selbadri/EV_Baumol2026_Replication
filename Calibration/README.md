@@ -63,7 +63,7 @@ Calibration/
     ├── figures/               Figures 1–7, B.1
     ├── calibration/           Parameters, fit report, fitted paths, Table 2
     ├── counterfactuals/       Tables 3–8, H.1, H.3, H.4
-    ├── robustness/            One folder per alternative calibration, Tables J.1 and H.2
+    ├── robustness/            One folder per alternative calibration, Tables J.1 and H.2, robustness_summary.csv
     └── logs/                  One log per step (not tracked)
 ```
 
@@ -118,6 +118,7 @@ Each block runs in a fresh Julia process, because `smm_ge_unified.jl` fixes the 
 | Table 8 | `output/counterfactuals/Table_8.tex` | `Exercise5.jl` |
 | Table H.2 | `output/robustness/Table_H2.tex` | `robustness.jl` (case `inputs_1980`) |
 | Table J.1 | `output/robustness/Table_J1.tex` | `robustness.jl` |
+| Appendix F, footnotes 41 and 42 (markup checks: real estate excluded; BEA data in every year) | `output/robustness/robustness_summary.csv`, rows `markups_noRE` and `markups_BEA` | `robustness.jl` (cases `markups_noRE`, `markups_BEA`) |
 
 Table 1 lists externally set constants (see above). Other files in `output/counterfactuals/` (`Exercise4_shapley.tex`, `Exercise4b_*`, `Exercise3_subperiods.tex`, `Exercise2_stock_appendix.tex`, `Exercise1_channels.pdf`, `Figure_H1.pdf` and the CSVs) are supporting results that do not appear in the paper. `output/robustness/robustness_summary.csv` also holds the mean-markup runs with `phi = 0.25` and `0.75` quoted in Appendix J.
 
@@ -133,7 +134,7 @@ Table 1 lists externally set constants (see above). Other files in `output/count
    ```
    julia --project=. run_all.jl
    ```
-   Step 5 builds Tables J.1 and H.2 from ten alternative calibrations. It reuses the runs stored in `output/robustness/`; to recompute them, which takes about 3.5 hours, run `julia --project=. code/robustness.jl --redo`. To skip parts:
+   Step 5 builds Tables J.1 and H.2 and the markup checks of Appendix F from twelve alternative calibrations. It reuses the runs stored in `output/robustness/`; to recompute them, which takes about 4 hours, run `julia --project=. code/robustness.jl --redo`. To skip parts:
    ```
    julia --project=. run_all.jl --skip-calibration    # keep output/calibration as stored
    julia --project=. run_all.jl --skip-robustness     # leave out Tables J.1 and H.2

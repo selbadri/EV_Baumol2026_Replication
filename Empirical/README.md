@@ -59,6 +59,8 @@ Empirical/
     ├── master_log.log
     └── dataset/
         ├── data_moments.xlsx  Compiled series
+        ├── data_moments_markups_noRE.xlsx, data_moments_markups_BEA.xlsx
+        │                      The same series with the markups of the two checks of Appendix F
         └── RD_intensity.xlsx  R&D workers per 100 employees by industry (Appendix E, Table E.1)
 ```
 
@@ -75,13 +77,13 @@ Empirical/
 | 06 | `06_labor_quality_growth.do` | Labor quality | `LABQLTY_*` |
 | 07a | `07a_capital_assets.do` | BEA capital asset panel | |
 | 07b | `07b_rates_of_return.do` | Internal and external rates of return | |
-| 07c | `07c_markups.do` | Machine-producer profit shares (Appendix F) | `profit_share_*` |
+| 07c | `07c_markups.do` | Machine-producer profit shares (Appendix F); also the two checks of Appendix F, real estate excluded (footnote 41) and BEA data in every year (footnote 42) | `profit_share_*` |
 | 08 | `08_capital_prices.do` | Capital prices, quality-adjusted equipment (Appendix G) | `CAPPRICE_*` |
 | 09 | `09_demographics.do` | US population | `pop`, `pop_g` |
 | 10 | `10_patents.do` | Patent shares, IPC route and USPC route (Appendix C) | `PATSH_*`, `PAT_USPC_*`, `PATSH_USPC_*` |
 | 10b | `10b_patent_stocks.do` | Patent stocks | `PATSTOCK_*`, `PATSTOCKSH_*` |
 | 11 | `11_scientists.do` | R&D worker shares and the RI/NRI classification (Appendices B, E) | `RDSH_*`, `SCI_SH` |
-| 12 | `12_compilation.do` | Merges all series and writes `data_moments.xlsx` | |
+| 12 | `12_compilation.do` | Merges all series and writes `data_moments.xlsx`, and `data_moments_markups_noRE.xlsx` and `data_moments_markups_BEA.xlsx` with the markups of the two checks | |
 
 Indices equal 1 in 1947 (the paper renormalizes to 1950). Shares are fractions, not percentages. Sheet `README` in `data_moments.xlsx` describes each variable.
 

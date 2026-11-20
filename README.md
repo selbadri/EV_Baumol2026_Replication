@@ -134,7 +134,7 @@ The results in the paper were produced on an Apple MacBook Pro (Apple M5 Pro, 15
 | Cross_Citations (optional) | `python run_all.py` | about 25 minutes | Needs the PatentsView and OECD downloads and reads about 30 GB of text. Its results are included, so this step can be skipped |
 | Empirical | `do master.do` | about 12 minutes | Step 11 loads the 4.5 GB IPUMS file; at least 16 GB of memory is recommended |
 | Calibration | `julia --project=. run_all.jl --skip-robustness` | about 5 minutes | Figures, calibration, Table 2 and the exercises |
-| Calibration robustness | `julia --project=. code/robustness.jl --redo` | about 3.5 hours | Reruns the ten recalibrations for Tables J.1 and H.2. Without `--redo`, `run_all.jl` reuses the stored runs in `output/robustness/` and only rebuilds the tables |
+| Calibration robustness | `julia --project=. code/robustness.jl --redo` | about 4 hours | Reruns the twelve recalibrations for Tables J.1 and H.2 and the markup checks of Appendix F. Without `--redo`, `run_all.jl` reuses the stored runs in `output/robustness/` and only rebuilds the tables |
 
 About 40 GB of free disk space is needed for a full rebuild of the patent tables; otherwise 10 GB is enough. No step uses random numbers, so every run gives the same results.
 
@@ -159,7 +159,7 @@ Run the three parts in this order. Each README has the details.
    julia --project=. -e 'using Pkg; Pkg.instantiate()'
    julia --project=. run_all.jl
    ```
-   Use `--skip-calibration` to keep the stored calibration and `--skip-robustness` to leave out Tables J.1 and H.2. Step 5 reuses the alternative calibrations stored in `output/robustness/`; to rerun them, run `julia --project=. code/robustness.jl --redo` (about 3.5 hours).
+   Use `--skip-calibration` to keep the stored calibration and `--skip-robustness` to leave out Tables J.1 and H.2. Step 5 reuses the alternative calibrations stored in `output/robustness/`; to rerun them, run `julia --project=. code/robustness.jl --redo` (about 4 hours).
 
 ## List of Tables and Figures
 
@@ -175,6 +175,7 @@ Run the three parts in this order. Each README has the details.
 | Table 7 | Calibration | `output/counterfactuals/Table_7.tex` | `code/counterfactuals/Exercise4.jl` |
 | Table 8 | Calibration | `output/counterfactuals/Table_8.tex` | `code/counterfactuals/Exercise5.jl` |
 | Tables J.1, H.2 | Calibration | `output/robustness/Table_J1.tex`, `Table_H2.tex` | `code/robustness.jl` |
+| Appendix F, footnotes 41 and 42 (markup checks) | Empirical, Calibration | Markups: `output/dataset/data_moments_markups_noRE.xlsx`, `_BEA.xlsx` (means printed in `output/master_log.log`); recalibrations: `output/robustness/robustness_summary.csv`, rows `markups_noRE`, `markups_BEA` | `code/07c_markups.do`; `code/robustness.jl` |
 | Table A.1 | Empirical | `input/manual/concordance_tables.xlsx` | — (input) |
 | Table D.1 | Cross_Citations | `input/concordances/isic31_4digit_to_sector.csv` | — (input) |
 | Table D.2 | Cross_Citations | `output/citations/Table_D2.tex` | `code/06_citation_probabilities.py` |

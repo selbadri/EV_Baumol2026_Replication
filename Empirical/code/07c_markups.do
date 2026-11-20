@@ -29,6 +29,8 @@
 *   - All private industries, real estate included.
 *   The calibration uses a quadratic trend in time of each sector's gross markup 1/(1-psi)
 *   over 1950-2023.
+*   Two checks of Appendix F are built in step 5 next to the baseline: real estate excluded
+*   (footnote 41) and BEA fixed assets in every year, without the BLS data (footnote 42).
 *
 * Inputs:  intermediate/07_markups/BEA_Panel.dta           (07a)
 *          intermediate/07_markups/IRR_ERR_1947to2024.dta  (07b)
@@ -37,6 +39,8 @@
 *          input/manual/JST/JSTdatasetR6.dta               (Jorda-Schularick-Taylor R6)
 *          intermediate/concordances/{BEA_sector_map, BLS_naics_map, BroadSector_map}.dta
 * Outputs: intermediate/07_markups.dta  (Year, profit_share_GOODS/RI/NRI, 1950-2023)
+*          intermediate/07_markups_noRE.dta  (same, real estate excluded; footnote 41)
+*          intermediate/07_markups_BEA.dta   (same, BEA data in every year; footnote 42)
 *          intermediate/07_markups/required_return.dta
 *=======================================================================================
 
@@ -207,7 +211,13 @@ foreach src in bea bls {
     save ``src'_m'
 }
 
-* Splice BEA to BLS at 1988, industry by industry, separately for CC and RC
+*---------------------------------------------------------------------------------------
+* 5. Link the two sources, aggregate by sector and save
+*    base  BEA before 1988, ratio-linked to BLS at 1988 by industry (the paper's series)
+*    noRE  as base, real estate (industry 45) excluded           (Appendix F, footnote 41)
+*    BEA   BEA fixed assets in every year, no BLS data           (Appendix F, footnote 42)
+*---------------------------------------------------------------------------------------
+* Link factors at 1988, industry by industry, separately for CC and RC
 use `bls_m', clear
 keep if year == 1988
 rename (CCm RCm) (CC88_bls RC88_bls)
@@ -224,33 +234,45 @@ gen double k_rc = RC88_bls / RC88_bea
 keep industry_id k_cc k_rc
 tempfile kf
 save `kf'
-use `bea_m', clear
-keep if year < 1988
-merge m:1 industry_id using `kf', keep(match) nogenerate
-replace CCm = CCm * k_cc
-replace RCm = RCm * k_rc
-drop if missing(CCm) | missing(RCm)
-drop k_cc k_rc
-append using `bls_m'
-drop if year > 2023 | (year >= 1988 & missing(CCm))
-drop if year < 1988 & missing(CCm)
 
-collapse (sum) CCm RCm, by(broadsector year)
-gen double psi = 1 - RCm / CCm
-keep broadsector year psi
-reshape wide psi, i(year) j(broadsector) string
-rename psiGOODS profit_share_GOODS
-rename psiRI    profit_share_RI
-rename psiNRI   profit_share_NRI
-rename year Year
-keep if inrange(Year, 1950, 2023)
-label variable profit_share_GOODS "Machine-producer profit share, Goods (Appendix G)"
-label variable profit_share_RI    "Machine-producer profit share, RI-S (Appendix G)"
-label variable profit_share_NRI   "Machine-producer profit share, NRI-S (Appendix G)"
-sort Year
-save "$interm/07_markups.dta", replace
-foreach s in GOODS RI NRI {
-    quietly gen double mk_`s' = 1 / (1 - profit_share_`s')
-    quietly summarize mk_`s'
-    display as result "`s' gross machine markup, 1950-2023 mean: " %6.4f r(mean)
+foreach v in base noRE BEA {
+    if "`v'" == "BEA" {
+        use `bea_m', clear
+        drop if year > 2023 | missing(CCm)
+    }
+    else {
+        use `bea_m', clear
+        keep if year < 1988
+        merge m:1 industry_id using `kf', keep(match) nogenerate
+        replace CCm = CCm * k_cc
+        replace RCm = RCm * k_rc
+        drop if missing(CCm) | missing(RCm)
+        drop k_cc k_rc
+        append using `bls_m'
+        drop if year > 2023 | (year >= 1988 & missing(CCm))
+        drop if year < 1988 & missing(CCm)
+        if "`v'" == "noRE" drop if industry_id == 45
+    }
+
+    collapse (sum) CCm RCm, by(broadsector year)
+    gen double psi = 1 - RCm / CCm
+    keep broadsector year psi
+    reshape wide psi, i(year) j(broadsector) string
+    rename psiGOODS profit_share_GOODS
+    rename psiRI    profit_share_RI
+    rename psiNRI   profit_share_NRI
+    rename year Year
+    keep if inrange(Year, 1950, 2023)
+    label variable profit_share_GOODS "Machine-producer profit share, Goods (Appendix F)"
+    label variable profit_share_RI    "Machine-producer profit share, RI-S (Appendix F)"
+    label variable profit_share_NRI   "Machine-producer profit share, NRI-S (Appendix F)"
+    sort Year
+    local suffix = cond("`v'" == "base", "", "_`v'")
+    save "$interm/07_markups`suffix'.dta", replace
+    display as text _n "Markup series `v'"
+    foreach s in GOODS RI NRI {
+        quietly gen double mk_`s' = 1 / (1 - profit_share_`s')
+        quietly summarize mk_`s'
+        display as result "`s' gross machine markup, 1950-2023 mean: " %6.4f r(mean)
+    }
 }
